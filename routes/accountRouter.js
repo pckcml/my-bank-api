@@ -2,6 +2,9 @@ import express from 'express';
 import { accountModel } from '../models/accountModel.js';
 import { formatCurrency } from '../helpers/formatHelper.js';
 
+const WDL_FEE = parseInt(process.env.WDL_FEE);
+const TXR_FEE = parseInt(process.env.TXR_FEE);
+
 const app = express();
 
 app.get('/', async (req, res) => {
@@ -78,7 +81,7 @@ app.patch('/withdrawal/:agencia/:conta', async (req, res) => {
       if (queriedAccount.balance < withdrawal) {
         res.send('Saldo insuficiente para esta transação.');
       } else {
-        const totalWithdrawal = withdrawal + parseInt(process.env.WDL_FEE);
+        const totalWithdrawal = withdrawal + WDL_FEE;
         const accountUpdate = await accountModel.findOneAndUpdate(
           {
             agencia: agencia,
@@ -178,7 +181,7 @@ app.patch('/transfer', async (req, res) => {
         res.send('Saldo insuficiente na conta de origem.');
       } else {
         if (fromBranch !== toBranch) {
-          commitTransfer(parseInt(process.env.TXR_FEE));
+          commitTransfer(TXR_FEE);
         } else {
           commitTransfer(0);
         }
