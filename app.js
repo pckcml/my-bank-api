@@ -6,7 +6,9 @@ import { accountRouter } from './routes/accountRouter.js';
 const PORT = process.env.PORT;
 const ATLAS_USERNAME = process.env.ATLAS_USERNAME;
 const ATLAS_PASSWORD = process.env.ATLAS_PASSWORD;
-const CONNECTION_STRING = `mongodb+srv://${ATLAS_USERNAME}:${ATLAS_PASSWORD}@cluster0.3rlot.azure.mongodb.net/my-bank-api?retryWrites=true&w=majority`;
+const ATLAS_URL = process.env.ATLAS_URL;
+const ATLAS_DB = process.env.ATLAS_DB;
+const CONNECTION_STRING = `mongodb+srv://${ATLAS_USERNAME}:${ATLAS_PASSWORD}@${ATLAS_URL}/${ATLAS_DB}?retryWrites=true&w=majority`;
 
 (async () => {
   try {
