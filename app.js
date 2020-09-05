@@ -2,6 +2,9 @@ import express from 'express';
 import mongoose from 'mongoose';
 import { accountRouter } from './routes/accountRouter.js';
 
+/* Git_1 */
+const PORT = process.env.PORT;
+
 (async () => {
   try {
     await mongoose.connect(
@@ -21,6 +24,6 @@ const app = express();
 app.use(express.json());
 app.use('/accounts', accountRouter);
 
-app.listen(process.env.PORT, () => {
+app.listen(PORT, () => {
   console.log('API started!');
 });
